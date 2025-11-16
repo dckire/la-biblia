@@ -1,656 +1,1017 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Buscador Bíblico - Santa Biblia App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4361EE;
-            --primary-dark: #3A56D4;
-            --secondary: #7209B7;
-            --accent: #F72585;
-            --success: #4CC9F0;
-            --light: #F8F9FA;
-            --dark: #212529;
-            --text: #495057;
-            --white: #FFFFFF;
-            --gray: #E9ECEF;
-            --card-bg: #FFFFFF;
-            --header-height: 60px;
-            --nav-height: 70px;
-            --border-radius: 16px;
-            --shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-        }
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYMJS3X12P"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-BYMJS3X12P');
+  </script>
+  <meta name="google-site-verification" content="KWZFlVdcT-h9cB1Qnj0LgSLJP-J-NS4bgjhnQG_c140" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Santa Biblia Reina-Valera - App Móvil</title>
+  <meta name="description" content="ANTIGUA VERSIÓN DE CASIODORO DE REINA (1569), REVISADA POR CIPRIANO DE VALERA (1602) - App Móvil">
+  <link rel="icon" type="image/jpeg" href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjMnK9YNHAeUqJMg3Ik0uXISwxlt3eeAc0uIj6Mr4SD-HPdRSNGWGv4wD-Bu9s19ejScpwxcYVX9SJ5ZfX-JbXlrRLvYrR-pqVvZMNIeK6zRaUlJzBbl-1VdJb-yg8bIAymQ9isL-YirKPYAA6FyN_s_1KfeZlNd7i-cj8VkW7_XRiSZuqlPcpd26GcBAs/s200/IMG-20250113-WA0002.jpg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+  <style>
+    :root {
+      --color-primary: #8B4513;
+      --color-secondary: #D2B48C;
+      --color-accent: #A52A2A;
+      --color-gold: #D4AF37;
+      --color-light: #F5F5DC;
+      --color-dark: #3C2A1E;
+      --color-text: #333;
+      --color-white: #FFFFFF;
+      --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      --shadow-heavy: 0 4px 15px rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
+      --header-height: 60px;
+      --nav-height: 70px;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: var(--text);
-            line-height: 1.5;
-            overflow-x: hidden;
-            height: 100vh;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        .app-container {
-            max-width: 100%;
-            height: 100vh;
-            background: var(--light);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
 
-        /* Status Bar (simulación iOS/Android) */
-        .status-bar {
-            height: 44px;
-            background: var(--primary);
-            color: var(--white);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
+    body {
+      font-family: 'Crimson Text', serif;
+      background-color: var(--color-light);
+      color: var(--color-text);
+      line-height: 1.6;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
 
-        .status-bar .time {
-            font-weight: 700;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(210, 180, 140, 0.1) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.1) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: -1;
+    }
 
-        .status-bar .icons {
-            display: flex;
-            gap: 5px;
-        }
+    /* App Container */
+    .app-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+      overflow: hidden;
+    }
 
-        /* Header */
-        .header {
-            height: var(--header-height);
-            background: var(--primary);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    /* Status Bar Simulation */
+    .status-bar {
+      height: 44px;
+      background: var(--color-primary);
+      color: var(--color-white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
 
-        .header-title {
-            font-size: 18px;
-            font-weight: 700;
-        }
+    .status-bar .time {
+      font-weight: 700;
+    }
 
-        .header-actions {
-            display: flex;
-            gap: 15px;
-        }
+    .status-bar .icons {
+      display: flex;
+      gap: 5px;
+    }
 
-        .header-icon {
-            font-size: 20px;
-        }
+    /* Header */
+    .header {
+      height: var(--header-height);
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+      color: var(--color-white);
+      padding: 0 15px;
+      box-shadow: var(--shadow-heavy);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 3px solid var(--color-gold);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            padding-bottom: calc(var(--nav-height) + 20px);
-            -webkit-overflow-scrolling: touch;
-        }
+    .header-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
 
-        /* Search Bar */
-        .search-container {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-        }
+    .title {
+      font-family: 'MedievalSharp', cursive;
+      font-size: 1.4rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 1px;
+      color: var(--color-gold);
+      text-align: center;
+    }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
+    .subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--color-secondary);
+      margin-top: -2px;
+    }
 
-        .search-bar i {
-            color: var(--primary);
-            font-size: 20px;
-        }
+    .menu-toggle {
+      background: none;
+      border: none;
+      color: var(--color-white);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
 
-        .search-bar input {
-            border: none;
-            outline: none;
-            flex: 1;
-            font-size: 16px;
-            background: transparent;
-            padding: 12px 0;
-        }
+    .menu-toggle:active {
+      background-color: rgba(0, 0, 0, 0.2);
+      transform: scale(0.95);
+    }
 
-        .search-bar input::placeholder {
-            color: #ADB5BD;
-        }
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 15px;
+      padding-bottom: calc(var(--nav-height) + 15px);
+      -webkit-overflow-scrolling: touch;
+    }
 
-        .search-button {
-            background: var(--primary);
-            color: var(--white);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 12px 20px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-        }
+    .hero-section {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 2rem 1rem;
+      background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      position: relative;
+      border: 1px solid rgba(139, 69, 19, 0.2);
+    }
 
-        .search-button:active {
-            transform: scale(0.98);
-            background: var(--primary-dark);
-        }
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-gold), var(--color-primary), var(--color-gold));
+    }
 
-        /* Quick Actions */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
+    .hero-section h1 {
+      font-family: 'Playfair Display', serif;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+      position: relative;
+      display: inline-block;
+    }
 
-        .action-btn {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            color: var(--text);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-        }
+    .hero-section h1::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background: var(--color-gold);
+    }
 
-        .action-btn:active {
-            transform: scale(0.95);
-        }
+    .hero-section p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
 
-        .action-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 20px;
-        }
+    .featured-verses {
+      margin: 2rem 0;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: linear-gradient(to right, var(--color-primary), var(--color-dark));
+      padding: 1.5rem;
+      color: var(--color-white);
+    }
 
-        .action-text {
-            font-weight: 600;
-            font-size: 14px;
-        }
+    .featured-verses h2 {
+      font-family: 'Cinzel', serif;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--color-gold);
+      font-size: 1.5rem;
+    }
 
-        /* Results */
-        .results-container {
-            margin-top: 20px;
-        }
+    .verses-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-        .results-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
+    .verse-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.2rem;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--color-gold);
+      transition: var(--transition);
+    }
 
-        .result-item {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 16px;
-            margin-bottom: 12px;
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--accent);
-        }
+    .verse-card:active {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.15);
+    }
 
-        .result-reference {
-            font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+    .verse-card p {
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 0.8rem;
+    }
 
-        .result-text {
-            line-height: 1.6;
-            color: var(--text);
-        }
+    .verse-card .verse-ref {
+      text-align: right;
+      font-weight: bold;
+      color: var(--color-secondary);
+      font-size: 0.9rem;
+    }
 
-        .resaltado {
-            background-color: #FFEB3B;
-            font-weight: 600;
-            padding: 2px 4px;
-            border-radius: 4px;
-        }
+    .card {
+      background: var(--color-white);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(139, 69, 19, 0.1);
+      margin-bottom: 1.5rem;
+    }
 
-        .no-results {
-            text-align: center;
-            padding: 30px;
-            color: var(--text);
-            font-style: italic;
-        }
+    .card:active {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-heavy);
+    }
 
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: var(--primary);
-        }
+    .card-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+      color: var(--color-white);
+      padding: 1rem;
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      position: relative;
+      text-align: center;
+    }
 
-        .loading i {
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
+    .card-header::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--color-gold);
+    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+    .card-body {
+      padding: 1.2rem;
+    }
 
-        /* Bottom Navigation */
-        .bottom-nav {
-            height: var(--nav-height);
-            background: var(--white);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-            padding-bottom: env(safe-area-inset-bottom);
-        }
+    .verse-of-day {
+      border-left: 4px solid var(--color-accent);
+      background: linear-gradient(to right, rgba(210, 180, 140, 0.1) 0%, rgba(255, 255, 255, 0.5) 100%);
+    }
 
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            text-decoration: none;
-            color: var(--text);
-            flex: 1;
-            padding: 8px 0;
-            transition: var(--transition);
-        }
+    .verse-of-day blockquote {
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
 
-        .nav-item.active {
-            color: var(--primary);
-        }
+    .verse-of-day cite {
+      display: block;
+      text-align: right;
+      font-weight: bold;
+      color: var(--color-accent);
+      font-size: 1rem;
+    }
 
-        .nav-icon {
-            font-size: 20px;
-        }
+    .bible-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
 
-        .nav-text {
-            font-size: 12px;
-            font-weight: 500;
-        }
+    .bible-button {
+      background: linear-gradient(to bottom, var(--color-primary), var(--color-dark));
+      color: var(--color-white);
+      border: none;
+      padding: 1.2rem 1.5rem;
+      border-radius: 50px;
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* Notch Simulation */
-        .notch {
-            width: 180px;
-            height: 30px;
-            background: var(--dark);
-            border-radius: 0 0 20px 20px;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-        }
+    .bible-button:active {
+      transform: scale(0.98);
+      background: linear-gradient(to bottom, var(--color-dark), var(--color-primary));
+    }
 
-        /* App Frame (opcional para simular dispositivo) */
-        .app-frame {
-            width: 100%;
-            max-width: 414px;
-            height: 100%;
-            margin: 0 auto;
-            background: var(--light);
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
+    .reading-plan ul {
+      list-style: none;
+    }
 
-        /* Media Queries para diferentes tamaños de pantalla */
-        @media (max-width: 380px) {
-            .header-title {
-                font-size: 16px;
-            }
-            
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-        }
+    .reading-plan li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+      border-bottom: 1px dashed rgba(139, 69, 19, 0.1);
+      padding-bottom: 0.8rem;
+    }
 
-        @media (min-width: 415px) {
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                padding: 20px;
-            }
-            
-            .app-frame {
-                height: 90vh;
-                border: 12px solid #1a1a1a;
-                border-radius: 40px;
-            }
-            
-            .notch {
-                display: block;
-            }
-        }
-    </style>
+    .reading-plan li:last-child {
+      border-bottom: none;
+    }
+
+    .reading-plan li:before {
+      content: "✝";
+      color: var(--color-accent);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .reading-plan a {
+      color: var(--color-primary);
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 700;
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--color-primary);
+      border-radius: 30px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .reading-plan a:active {
+      color: var(--color-white);
+      background-color: var(--color-primary);
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .resource-item {
+      text-align: center;
+      text-decoration: none;
+      color: var(--color-text);
+      transition: var(--transition);
+      padding: 0.5rem;
+    }
+
+    .resource-item:active {
+      transform: translateY(-3px);
+    }
+
+    .resource-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.5rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      border: 2px solid var(--color-gold);
+      transition: var(--transition);
+    }
+
+    .resource-item:active .resource-icon {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-dark) 100%);
+    }
+
+    .resource-icon i {
+      font-size: 1.5rem;
+      color: var(--color-white);
+    }
+
+    /* Bottom Navigation */
+    .bottom-nav {
+      height: var(--nav-height);
+      background: var(--color-white);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+      padding-bottom: env(safe-area-inset-bottom);
+      z-index: 1000;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--color-text);
+      flex: 1;
+      padding: 8px 0;
+      transition: var(--transition);
+    }
+
+    .nav-item.active {
+      color: var(--color-primary);
+    }
+
+    .nav-icon {
+      font-size: 1.2rem;
+    }
+
+    .nav-text {
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    /* Side Menu */
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 85%;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--color-dark), var(--color-primary));
+      z-index: 2000;
+      transition: var(--transition);
+      padding: 2rem 1.5rem;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+      overflow-y: auto;
+    }
+
+    .side-menu.active {
+      right: 0;
+    }
+
+    .side-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--color-gold);
+    }
+
+    .side-menu-title {
+      font-family: 'Cinzel', serif;
+      color: var(--color-gold);
+      font-size: 1.3rem;
+    }
+
+    .side-menu-close {
+      background: none;
+      border: none;
+      color: var(--color-white);
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .side-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .side-menu-links a {
+      color: var(--color-white);
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+      font-size: 1rem;
+    }
+
+    .side-menu-links a:active {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 3px solid var(--color-gold);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+      padding: 15px;
+    }
+
+    .modal-content {
+      background: linear-gradient(to bottom, var(--color-light), var(--color-white));
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      position: relative;
+      border: 2px solid var(--color-gold);
+      max-width: 400px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--color-accent);
+      transition: var(--transition);
+    }
+
+    .modal-close:active {
+      transform: rotate(90deg);
+    }
+
+    .modal h2 {
+      font-family: 'Cinzel', serif;
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .modal p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    #btn-aceptar {
+      min-width: 120px;
+      padding: 0.8rem 1.5rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-primary) 100%);
+      color: var(--color-white);
+      padding: 2rem 0 1rem;
+      margin-top: 2rem;
+      position: relative;
+      border-top: 3px solid var(--color-gold);
+    }
+
+    .footer-content {
+      text-align: center;
+      padding: 0 15px;
+    }
+
+    .footer-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: block;
+      border: 3px solid var(--color-gold);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .copyright {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--color-secondary);
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* App Frame for Demo */
+    .app-frame {
+      width: 100%;
+      max-width: 414px;
+      height: 100%;
+      margin: 0 auto;
+      background: var(--color-light);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .notch {
+      width: 180px;
+      height: 30px;
+      background: var(--color-dark);
+      border-radius: 0 0 20px 20px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1001;
+    }
+
+    /* Media Queries */
+    @media (min-width: 415px) {
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+      }
+      
+      .app-frame {
+        height: 90vh;
+        border: 12px solid #1a1a1a;
+        border-radius: 40px;
+      }
+      
+      .notch {
+        display: block;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .title {
+        font-size: 1.2rem;
+      }
+      
+      .hero-section h1 {
+        font-size: 1.5rem;
+      }
+      
+      .bible-button {
+        padding: 1rem 1.2rem;
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="app-frame">
-        <div class="notch"></div>
-        <div class="app-container">
-            <!-- Status Bar (simulación) -->
-            <div class="status-bar">
-                <div class="time" id="current-time">9:41</div>
-                <div class="icons">
-                    <i class="fas fa-signal"></i>
-                    <i class="fas fa-wifi"></i>
-                    <i class="fas fa-battery-three-quarters"></i>
-                </div>
-            </div>
-
-            <!-- Header -->
-            <header class="header">
-                <div class="header-title">Buscador Bíblico</div>
-                <div class="header-actions">
-                    <i class="fas fa-bookmark header-icon" id="bookmark-btn"></i>
-                </div>
-            </header>
-
-            <!-- Main Content -->
-            <main class="main-content" id="main-content">
-                <!-- Search Container -->
-                <div class="search-container">
-                    <div class="search-bar">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="search-input" placeholder="Buscar palabra o frase en la Biblia...">
-                    </div>
-                    <button class="search-button" id="search-button">
-                        <i class="fas fa-search"></i> Buscar en la Biblia
-                    </button>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="quick-actions">
-                    <a href="viejo.html" class="action-btn" id="old-testament-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-scroll"></i>
-                        </div>
-                        <div class="action-text">Antiguo Testamento</div>
-                    </a>
-                    <a href="nuevo.html" class="action-btn" id="new-testament-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-book-open"></i>
-                        </div>
-                        <div class="action-text">Nuevo Testamento</div>
-                    </a>
-                    <a href="plan-de-lectura.html" class="action-btn" id="reading-plan-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="action-text">Plan de Lectura</div>
-                    </a>
-                    <a href="mapas.html" class="action-btn" id="maps-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-map"></i>
-                        </div>
-                        <div class="action-text">Mapas Bíblicos</div>
-                    </a>
-                </div>
-
-                <!-- Results Container -->
-                <div class="results-container" id="results-container">
-                    <div class="no-results" id="initial-message">
-                        <i class="fas fa-bible" style="font-size: 48px; margin-bottom: 15px; color: #ADB5BD;"></i>
-                        <p>Escribe una palabra o frase para buscar en toda la Biblia</p>
-                    </div>
-                </div>
-            </main>
-
-            <!-- Bottom Navigation -->
-            <nav class="bottom-nav">
-                <a href="index.html" class="nav-item" id="home-nav">
-                    <i class="fas fa-home nav-icon"></i>
-                    <span class="nav-text">Inicio</span>
-                </a>
-                <a href="buscador.html" class="nav-item active" id="search-nav">
-                    <i class="fas fa-search nav-icon"></i>
-                    <span class="nav-text">Buscar</span>
-                </a>
-                <a href="biblioteca.html" class="nav-item" id="library-nav">
-                    <i class="fas fa-book nav-icon"></i>
-                    <span class="nav-text">Biblioteca</span>
-                </a>
-                <a href="guardados.html" class="nav-item" id="saved-nav">
-                    <i class="fas fa-bookmark nav-icon"></i>
-                    <span class="nav-text">Guardados</span>
-                </a>
-                <a href="ajustes.html" class="nav-item" id="settings-nav">
-                    <i class="fas fa-cog nav-icon"></i>
-                    <span class="nav-text">Ajustes</span>
-                </a>
-            </nav>
+  <div class="app-frame">
+    <div class="notch"></div>
+    <div class="app-container">
+      <!-- Status Bar Simulation -->
+      <div class="status-bar">
+        <div class="time" id="current-time">9:41</div>
+        <div class="icons">
+          <i class="fas fa-signal"></i>
+          <i class="fas fa-wifi"></i>
+          <i class="fas fa-battery-three-quarters"></i>
         </div>
+      </div>
+
+      <!-- Header -->
+      <header class="header">
+        <button class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="header-content">
+          <h1 class="title">LA SANTA BIBLIA</h1>
+          <p class="subtitle">Reina-Valera 1569-1602</p>
+        </div>
+      </header>
+
+      <!-- Menú lateral -->
+      <div class="overlay" id="overlay"></div>
+      <div class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+          <h2 class="side-menu-title">Navegación</h2>
+          <button class="side-menu-close" id="sideMenuClose">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="side-menu-links">
+          <a href="acercade.html">Acerca de</a>
+          <a href="plan-de-lectura.html">Plan de Lectura</a>
+          <a href="contacto.html">Contacto</a>
+          <a href="notas.html">Notas</a>
+          <a href="numerosdeemergencia.html">Números de Emergencia</a>
+        </div>
+      </div>
+
+      <!-- Modal de advertencia -->
+      <div id="nota-advertencia" class="modal">
+        <div class="modal-content">
+          <span class="modal-close" id="btn-cerrar">&times;</span>
+          <h2>Nota Importante</h2>
+          <p>📖✨ No dejes que la pantalla reemplace la Palabra impresa ✨📖</p>
+          <button id="btn-aceptar" class="bible-button">OK</button>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <main class="main-content" id="main-content">
+        <section class="hero-section fade-in">
+          <h1>La Palabra Eterna de Dios</h1>
+          <p>ANTIGUA VERSIÓN DE CASIODORO DE REINA (1569), REVISADA POR CIPRIANO DE VALERA (1602) Y COTEJADA CON LOS TEXTOS HEBREO Y GRIEGO.</p>
+        </section>
+
+        <section class="featured-verses fade-in">
+          <h2>Versículos Destacados</h2>
+          <div class="verses-container">
+            <div class="verse-card">
+              <p>"Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna."</p>
+              <div class="verse-ref">Juan 3:16</div>
+            </div>
+            <div class="verse-card">
+              <p>"El Señor es mi pastor; nada me faltará. En lugares de delicados pastos me hará yacer: junto a aguas de reposo me pastoreará."</p>
+              <div class="verse-ref">Salmos 23:1-2</div>
+            </div>
+            <div class="verse-card">
+              <p>"Fiel es el que os llama, el cual también lo hará. Estad siempre gozosos. Orad sin cesar. Dad gracias en todo; porque esta es la voluntad de Dios para con vosotros en Cristo Jesús."</p>
+              <div class="verse-ref">1 Tesalonicenses 5:24, 16-18</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card verse-of-day fade-in">
+          <div class="card-header">
+            <h2>Versículo del Día</h2>
+          </div>
+          <div class="card-body">
+            <blockquote>
+              <p>35 Y fué, que en moviendo el arca, Moisés decía: Levántate, Jehová, y sean disipados tus enemigos, y huyan de tu presencia los que te aborrecen.</p>
+              <p>36 Y cuando ella asentaba, decía: Vuelve, Jehová, a los millares de millares de Israel.</p>
+            </blockquote>
+            <cite>Números 10:35-36</cite>
+          </div>
+        </section>
+
+        <div class="bible-buttons">
+          <button class="bible-button" onclick="location.href='viejo.html'">
+            <i class="fas fa-book"></i> Antiguo Testamento
+          </button>
+          <button class="bible-button" onclick="location.href='nuevo.html'">
+            <i class="fas fa-book-open"></i> Nuevo Testamento
+          </button>
+        </div>
+
+        <div class="main-grid">
+          <section class="card reading-plan fade-in">
+            <div class="card-header">
+              <h2>Plan de Lectura</h2>
+            </div>
+            <div class="card-body">
+              <h3>Parábolas del Antiguo Testamento</h3>
+              <ul>
+                <li>Los árboles eligen su rey <strong>Jueces 9:7-15</strong></li>
+                <li>El cedro del Líbano <strong>Ezequiel 31</strong></li>
+                <li>La viña estéril <strong>Isaías 5:1-6</strong></li>
+              </ul>
+
+              <h3>Parábolas del Nuevo Testamento</h3>
+              <ul>
+                <li>La parábola del sembrador <strong>Mateo 13:1-23</strong></li>
+                <li>La parábola de la oveja perdida <strong>Lucas 15:1-7</strong></li>
+                <li>La parábola del hijo pródigo <strong>Lucas 15:11-32</strong></li>
+              </ul>
+              <a href="parabolas.html">Ver plan completo</a>
+            </div>
+          </section>
+
+          <section class="card resources fade-in">
+            <div class="card-header">
+              <h2>Recursos Destacados</h2>
+            </div>
+            <div class="card-body">
+              <div class="resources-grid">
+                <a href="mapas.html" class="resource-item">
+                  <div class="resource-icon">
+                    <i class="fas fa-map"></i>
+                  </div>
+                  <p>Mapas</p>
+                </a>
+                <a href="buscador.html" class="resource-item">
+                  <div class="resource-icon">
+                    <i class="fas fa-search"></i>
+                  </div>
+                  <p>Buscador</p>
+                </a>
+                <a href="estudios.html" class="resource-item">
+                  <div class="resource-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                  </div>
+                  <p>Estudios</p>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- Bottom Navigation -->
+      <nav class="bottom-nav">
+        <a href="index.html" class="nav-item active">
+          <i class="fas fa-home nav-icon"></i>
+          <span class="nav-text">Inicio</span>
+        </a>
+        <a href="biblioteca.html" class="nav-item">
+          <i class="fas fa-book nav-icon"></i>
+          <span class="nav-text">Biblioteca</span>
+        </a>
+        <a href="buscador.html" class="nav-item">
+          <i class="fas fa-search nav-icon"></i>
+          <span class="nav-text">Buscar</span>
+        </a>
+        <a href="guardados.html" class="nav-item">
+          <i class="fas fa-bookmark nav-icon"></i>
+          <span class="nav-text">Guardados</span>
+        </a>
+        <a href="ajustes.html" class="nav-item">
+          <i class="fas fa-cog nav-icon"></i>
+          <span class="nav-text">Ajustes</span>
+        </a>
+      </nav>
     </div>
+  </div>
 
-    <script>
-        // Actualizar hora en tiempo real
-        function updateTime() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString('es-ES', { 
-                hour: '2-digit', 
-                minute: '2-digit',
-                hour12: false 
-            });
-            document.getElementById('current-time').textContent = timeString;
+  <script>
+    // Actualizar hora en tiempo real
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('es-ES', { 
+        hour: '2-digit', 
+        minute: '2-digit',
+        hour12: false 
+      });
+      document.getElementById('current-time').textContent = timeString;
+    }
+
+    // Actualizar cada minuto
+    updateTime();
+    setInterval(updateTime, 60000);
+
+    // Nota de advertencia
+    const modal = document.getElementById("nota-advertencia");
+    const btnAceptar = document.getElementById("btn-aceptar");
+    const btnCerrar = document.getElementById("btn-cerrar");
+
+    // Mostrar modal después de 1 segundo
+    setTimeout(function() {
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    }, 1000);
+
+    function cerrarModal() {
+      modal.style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+
+    btnAceptar.addEventListener("click", cerrarModal);
+    btnCerrar.addEventListener("click", cerrarModal);
+
+    // Efecto de aparición de elementos al hacer scroll
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const checkFade = function() {
+      fadeElements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+
+        if (elementTop < windowHeight - 100) {
+          element.classList.add('visible');
         }
+      });
+    }
 
-        // Actualizar cada minuto
-        updateTime();
-        setInterval(updateTime, 60000);
+    window.addEventListener('scroll', checkFade);
+    window.addEventListener('load', checkFade);
 
-        // URLs de los capítulos de la Biblia (lista reducida para ejemplo)
-        const bibleUrls = [
-            { url: 'https://dckire.github.io/reinavalera/genesis1.html', libro: 'Génesis', capitulo: 1 },
-            { url: 'https://dckire.github.io/reinavalera/genesis2.html', libro: 'Génesis', capitulo: 2 },
-            { url: 'https://dckire.github.io/reinavalera/salmos23.html', libro: 'Salmos', capitulo: 23 },
-            { url: 'https://dckire.github.io/reinavalera/mateo5.html', libro: 'Mateo', capitulo: 5 },
-            { url: 'https://dckire.github.io/reinavalera/juan3.html', libro: 'Juan', capitulo: 3 },
-            { url: 'https://dckire.github.io/reinavalera/1corintios13.html', libro: '1 Corintios', capitulo: 13 },
-        ];
+    // Menú lateral para móviles
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    const sideMenuClose = document.getElementById('sideMenuClose');
+    const overlay = document.getElementById('overlay');
 
-        // Función para buscar en la Biblia
-        async function buscarEnBiblia(palabra) {
-            const resultsContainer = document.getElementById('results-container');
-            resultsContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Buscando en la Biblia...</div>';
+    function openSideMenu() {
+      sideMenu.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
 
-            let resultadosEncontrados = false;
+    function closeSideMenu() {
+      sideMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
 
-            // Limitar la búsqueda a unos pocos capítulos para evitar sobrecarga
-            const urlsLimitadas = bibleUrls.slice(0, 5);
+    if (menuToggle) {
+      menuToggle.addEventListener('click', openSideMenu);
+    }
 
-            for (const item of urlsLimitadas) {
-                try {
-                    const response = await fetch(item.url);
-                    if (!response.ok) throw new Error('Error al cargar el capítulo');
-                    
-                    const text = await response.text();
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(text, 'text/html');
-                    const versiculos = doc.querySelectorAll('p');
+    if (sideMenuClose) {
+      sideMenuClose.addEventListener('click', closeSideMenu);
+    }
 
-                    versiculos.forEach((versiculo, index) => {
-                        const textoVersiculo = versiculo.textContent;
-                        if (textoVersiculo.toLowerCase().includes(palabra.toLowerCase())) {
-                            resultadosEncontrados = true;
-                            const versiculoResaltado = textoVersiculo.replace(
-                                new RegExp(palabra, 'gi'), 
-                                (match) => `<span class="resaltado">${match}</span>`
-                            );
-                            
-                            const resultItem = document.createElement('div');
-                            resultItem.className = 'result-item';
-                            resultItem.innerHTML = `
-                                <div class="result-reference">${item.libro} ${item.capitulo}:${index + 1}</div>
-                                <div class="result-text">${versiculoResaltado}</div>
-                            `;
-                            
-                            resultsContainer.appendChild(resultItem);
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error al cargar el capítulo:', error);
-                }
-            }
+    if (overlay) {
+      overlay.addEventListener('click', closeSideMenu);
+    }
 
-            if (!resultadosEncontrados) {
-                resultsContainer.innerHTML = `
-                    <div class="no-results">
-                        <i class="fas fa-search" style="font-size: 48px; margin-bottom: 15px; color: #ADB5BD;"></i>
-                        <p>No se encontraron resultados para "${palabra}"</p>
-                        <p style="margin-top: 10px; font-size: 14px;">Intenta con otra palabra o frase</p>
-                    </div>
-                `;
-            }
-        }
+    // Efectos táctiles en botones y tarjetas
+    document.querySelectorAll('.card, .bible-button, .resource-item, .nav-item').forEach(element => {
+      element.addEventListener('touchstart', function() {
+        this.style.opacity = '0.7';
+      });
+      
+      element.addEventListener('touchend', function() {
+        this.style.opacity = '1';
+      });
+    });
 
-        // Funcionalidad de navegación
-        function setupNavigation() {
-            // Navegación inferior
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetPage = this.getAttribute('href');
-                    
-                    // Remover clase active de todos los items
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    // Agregar clase active al item clickeado
-                    this.classList.add('active');
-                    
-                    // Simular navegación (en un entorno real esto cargaría la página)
-                    console.log(`Navegando a: ${targetPage}`);
-                    // window.location.href = targetPage; // Descomentar para navegación real
-                });
-            });
+    // Navegación entre pestañas
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
 
-            // Botones de acción rápida
-            const actionButtons = document.querySelectorAll('.action-btn');
-            actionButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetPage = this.getAttribute('href');
-                    console.log(`Navegando a: ${targetPage}`);
-                    // window.location.href = targetPage; // Descomentar para navegación real
-                });
-            });
-
-            // Botón de marcador en header
-            document.getElementById('bookmark-btn').addEventListener('click', function() {
-                console.log('Accediendo a marcadores');
-                // window.location.href = 'guardados.html'; // Descomentar para navegación real
-            });
-        }
-
-        // Event listeners para búsqueda
-        document.getElementById('search-button').addEventListener('click', function() {
-            const searchTerm = document.getElementById('search-input').value.trim();
-            if (searchTerm) {
-                buscarEnBiblia(searchTerm);
-            } else {
-                alert('Por favor, escribe una palabra o frase para buscar.');
-            }
-        });
-
-        document.getElementById('search-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const searchTerm = document.getElementById('search-input').value.trim();
-                if (searchTerm) {
-                    buscarEnBiblia(searchTerm);
-                } else {
-                    alert('Por favor, escribe una palabra o frase para buscar.');
-                }
-            }
-        });
-
-        // Efectos táctiles en botones
-        function setupTouchEffects() {
-            document.querySelectorAll('.search-button, .action-btn, .nav-item').forEach(element => {
-                element.addEventListener('touchstart', function() {
-                    this.style.opacity = '0.7';
-                });
-                
-                element.addEventListener('touchend', function() {
-                    this.style.opacity = '1';
-                });
-            });
-        }
-
-        // Simular carga inicial
-        document.addEventListener('DOMContentLoaded', function() {
-            // Configurar funcionalidades
-            setupNavigation();
-            setupTouchEffects();
-            
-            // Añadir clase loaded al body después de un breve retraso para animaciones
-            setTimeout(() => {
-                document.body.classList.add('loaded');
-            }, 100);
-        });
-
-        // Función para simular páginas (para demostración)
-        function simulatePageLoad(pageName) {
-            const mainContent = document.getElementById('main-content');
-            mainContent.innerHTML = `
-                <div style="text-align: center; padding: 50px 20px;">
-                    <i class="fas fa-bible" style="font-size: 64px; color: var(--primary); margin-bottom: 20px;"></i>
-                    <h2 style="color: var(--dark); margin-bottom: 10px;">${pageName}</h2>
-                    <p style="color: var(--text);">Esta es una simulación de la página ${pageName}</p>
-                    <button onclick="goBack()" style="margin-top: 20px; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">
-                        Volver al Buscador
-                    </button>
-                </div>
-            `;
-        }
-
-        function goBack() {
-            location.reload();
-        }
-    </script>
+    // Inicializar checkFade al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+      checkFade();
+    });
+  </script>
 </body>
 </html>
