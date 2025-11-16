@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Santa Biblia App</title>
+    <title>Buscador Bíblico - Santa Biblia App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -114,20 +114,24 @@
         }
 
         /* Search Bar */
-        .search-bar {
+        .search-container {
             background: var(--white);
             border-radius: var(--border-radius);
-            padding: 12px 20px;
+            padding: 15px;
             margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .search-bar {
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: var(--shadow);
+            margin-bottom: 15px;
         }
 
         .search-bar i {
             color: var(--primary);
-            font-size: 18px;
+            font-size: 20px;
         }
 
         .search-bar input {
@@ -136,83 +140,29 @@
             flex: 1;
             font-size: 16px;
             background: transparent;
+            padding: 12px 0;
         }
 
         .search-bar input::placeholder {
             color: #ADB5BD;
         }
 
-        /* Cards */
-        .card {
-            background: var(--card-bg);
+        .search-button {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
             border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 16px;
-            box-shadow: var(--shadow);
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
             transition: var(--transition);
+            width: 100%;
         }
 
-        .card:active {
+        .search-button:active {
             transform: scale(0.98);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 18px;
-        }
-
-        /* Verse of the Day */
-        .verse-of-day {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .verse-of-day::before {
-            content: """;
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 80px;
-            opacity: 0.2;
-            line-height: 1;
-        }
-
-        .verse-text {
-            font-style: italic;
-            margin-bottom: 15px;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-        }
-
-        .verse-reference {
-            font-weight: 600;
-            text-align: right;
-            opacity: 0.9;
-            position: relative;
-            z-index: 1;
+            background: var(--primary-dark);
         }
 
         /* Quick Actions */
@@ -235,6 +185,7 @@
             color: var(--text);
             box-shadow: var(--shadow);
             transition: var(--transition);
+            text-align: center;
         }
 
         .action-btn:active {
@@ -256,52 +207,21 @@
         .action-text {
             font-weight: 600;
             font-size: 14px;
-            text-align: center;
         }
 
-        /* Reading Plan */
-        .reading-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--gray);
+        /* Results */
+        .results-container {
+            margin-top: 20px;
         }
 
-        .reading-item:last-child {
-            border-bottom: none;
-        }
-
-        .reading-day {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .reading-content {
-            flex: 1;
-        }
-
-        .reading-title {
+        .results-title {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 15px;
+            color: var(--dark);
         }
 
-        .reading-reference {
-            font-size: 14px;
-            color: var(--primary);
-            font-weight: 500;
-        }
-
-        /* Featured Verses */
-        .verse-card {
+        .result-item {
             background: var(--white);
             border-radius: var(--border-radius);
             padding: 16px;
@@ -310,16 +230,46 @@
             border-left: 4px solid var(--accent);
         }
 
-        .verse-card p {
-            font-style: italic;
-            margin-bottom: 10px;
-            line-height: 1.6;
-        }
-
-        .verse-card .verse-ref {
-            text-align: right;
+        .result-reference {
             font-weight: 600;
             color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .result-text {
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .resaltado {
+            background-color: #FFEB3B;
+            font-weight: 600;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--primary);
+        }
+
+        .loading i {
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Bottom Navigation */
@@ -362,25 +312,6 @@
             font-weight: 500;
         }
 
-        /* Swipe Indicators */
-        .swipe-indicator {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .swipe-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gray);
-        }
-
-        .swipe-dot.active {
-            background: var(--primary);
-        }
-
         /* Notch Simulation */
         .notch {
             width: 180px;
@@ -407,37 +338,14 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-
-        /* Pull to refresh indicator */
-        .refresh-indicator {
-            text-align: center;
-            padding: 10px;
-            color: var(--primary);
-            font-weight: 500;
-            display: none;
-        }
-
         /* Media Queries para diferentes tamaños de pantalla */
         @media (max-width: 380px) {
-            .quick-actions {
-                grid-template-columns: 1fr;
-            }
-            
             .header-title {
                 font-size: 16px;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -478,144 +386,81 @@
 
             <!-- Header -->
             <header class="header">
-                <div class="header-title">Santa Biblia</div>
+                <div class="header-title">Buscador Bíblico</div>
                 <div class="header-actions">
-                    <i class="fas fa-search header-icon"></i>
-                    <i class="fas fa-bookmark header-icon"></i>
+                    <i class="fas fa-bookmark header-icon" id="bookmark-btn"></i>
                 </div>
             </header>
 
             <!-- Main Content -->
             <main class="main-content" id="main-content">
-                <div class="refresh-indicator" id="refresh-indicator">
-                    <i class="fas fa-sync-alt"></i> Actualizando...
-                </div>
-
-                <!-- Search Bar -->
-                <div class="search-bar fade-in">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Buscar en la Biblia...">
-                </div>
-
-                <!-- Verse of the Day -->
-                <div class="card verse-of-day fade-in">
-                    <div class="card-header">
-                        <div class="card-title">Versículo del Día</div>
-                        <div class="card-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
+                <!-- Search Container -->
+                <div class="search-container">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-input" placeholder="Buscar palabra o frase en la Biblia...">
                     </div>
-                    <p class="verse-text">Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.</p>
-                    <div class="verse-reference">Juan 3:16</div>
+                    <button class="search-button" id="search-button">
+                        <i class="fas fa-search"></i> Buscar en la Biblia
+                    </button>
                 </div>
 
                 <!-- Quick Actions -->
-                <div class="quick-actions fade-in delay-1">
-                    <a href="#" class="action-btn">
+                <div class="quick-actions">
+                    <a href="viejo.html" class="action-btn" id="old-testament-btn">
                         <div class="action-icon">
-                            <i class="fas fa-book"></i>
+                            <i class="fas fa-scroll"></i>
                         </div>
                         <div class="action-text">Antiguo Testamento</div>
                     </a>
-                    <a href="#" class="action-btn">
+                    <a href="nuevo.html" class="action-btn" id="new-testament-btn">
                         <div class="action-icon">
                             <i class="fas fa-book-open"></i>
                         </div>
                         <div class="action-text">Nuevo Testamento</div>
                     </a>
-                    <a href="#" class="action-btn">
+                    <a href="plan-de-lectura.html" class="action-btn" id="reading-plan-btn">
                         <div class="action-icon">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="action-text">Plan de Lectura</div>
                     </a>
-                    <a href="#" class="action-btn">
+                    <a href="mapas.html" class="action-btn" id="maps-btn">
                         <div class="action-icon">
-                            <i class="fas fa-bookmark"></i>
+                            <i class="fas fa-map"></i>
                         </div>
-                        <div class="action-text">Marcadores</div>
+                        <div class="action-text">Mapas Bíblicos</div>
                     </a>
                 </div>
 
-                <!-- Reading Plan -->
-                <div class="card fade-in delay-2">
-                    <div class="card-header">
-                        <div class="card-title">Plan de Lectura de Hoy</div>
-                        <div class="card-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
+                <!-- Results Container -->
+                <div class="results-container" id="results-container">
+                    <div class="no-results" id="initial-message">
+                        <i class="fas fa-bible" style="font-size: 48px; margin-bottom: 15px; color: #ADB5BD;"></i>
+                        <p>Escribe una palabra o frase para buscar en toda la Biblia</p>
                     </div>
-                    <div class="reading-item">
-                        <div class="reading-day">Lun</div>
-                        <div class="reading-content">
-                            <div class="reading-title">Parábola del Sembrador</div>
-                            <div class="reading-reference">Mateo 13:1-23</div>
-                        </div>
-                        <i class="fas fa-chevron-right" style="color: #ADB5BD;"></i>
-                    </div>
-                    <div class="reading-item">
-                        <div class="reading-day">Mar</div>
-                        <div class="reading-content">
-                            <div class="reading-title">El Buen Samaritano</div>
-                            <div class="reading-reference">Lucas 10:25-37</div>
-                        </div>
-                        <i class="fas fa-chevron-right" style="color: #ADB5BD;"></i>
-                    </div>
-                    <div class="reading-item">
-                        <div class="reading-day">Mié</div>
-                        <div class="reading-content">
-                            <div class="reading-title">El Hijo Pródigo</div>
-                            <div class="reading-reference">Lucas 15:11-32</div>
-                        </div>
-                        <i class="fas fa-chevron-right" style="color: #ADB5BD;"></i>
-                    </div>
-                </div>
-
-                <!-- Featured Verses -->
-                <div class="card fade-in delay-3">
-                    <div class="card-header">
-                        <div class="card-title">Versículos Destacados</div>
-                        <div class="card-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-                    <div class="verse-card">
-                        <p>El Señor es mi pastor; nada me faltará. En lugares de delicados pastos me hará yacer: junto a aguas de reposo me pastoreará.</p>
-                        <div class="verse-ref">Salmos 23:1-2</div>
-                    </div>
-                    <div class="verse-card">
-                        <p>Fiel es el que os llama, el cual también lo hará. Estad siempre gozosos. Orad sin cesar. Dad gracias en todo; porque esta es la voluntad de Dios para con vosotros en Cristo Jesús.</p>
-                        <div class="verse-ref">1 Tesalonicenses 5:24, 16-18</div>
-                    </div>
-                </div>
-
-                <!-- Swipe Indicators -->
-                <div class="swipe-indicator">
-                    <div class="swipe-dot active"></div>
-                    <div class="swipe-dot"></div>
-                    <div class="swipe-dot"></div>
                 </div>
             </main>
 
             <!-- Bottom Navigation -->
             <nav class="bottom-nav">
-                <a href="#" class="nav-item active">
+                <a href="index.html" class="nav-item" id="home-nav">
                     <i class="fas fa-home nav-icon"></i>
                     <span class="nav-text">Inicio</span>
                 </a>
-                <a href="#" class="nav-item">
-                    <i class="fas fa-book nav-icon"></i>
-                    <span class="nav-text">Biblioteca</span>
-                </a>
-                <a href="#" class="nav-item">
+                <a href="buscador.html" class="nav-item active" id="search-nav">
                     <i class="fas fa-search nav-icon"></i>
                     <span class="nav-text">Buscar</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="biblioteca.html" class="nav-item" id="library-nav">
+                    <i class="fas fa-book nav-icon"></i>
+                    <span class="nav-text">Biblioteca</span>
+                </a>
+                <a href="guardados.html" class="nav-item" id="saved-nav">
                     <i class="fas fa-bookmark nav-icon"></i>
                     <span class="nav-text">Guardados</span>
                 </a>
-                <a href="#" class="nav-item">
+                <a href="ajustes.html" class="nav-item" id="settings-nav">
                     <i class="fas fa-cog nav-icon"></i>
                     <span class="nav-text">Ajustes</span>
                 </a>
@@ -639,62 +484,173 @@
         updateTime();
         setInterval(updateTime, 60000);
 
-        // Simular funcionalidad de "pull to refresh"
-        let startY = 0;
-        const mainContent = document.getElementById('main-content');
-        const refreshIndicator = document.getElementById('refresh-indicator');
+        // URLs de los capítulos de la Biblia (lista reducida para ejemplo)
+        const bibleUrls = [
+            { url: 'https://dckire.github.io/reinavalera/genesis1.html', libro: 'Génesis', capitulo: 1 },
+            { url: 'https://dckire.github.io/reinavalera/genesis2.html', libro: 'Génesis', capitulo: 2 },
+            { url: 'https://dckire.github.io/reinavalera/salmos23.html', libro: 'Salmos', capitulo: 23 },
+            { url: 'https://dckire.github.io/reinavalera/mateo5.html', libro: 'Mateo', capitulo: 5 },
+            { url: 'https://dckire.github.io/reinavalera/juan3.html', libro: 'Juan', capitulo: 3 },
+            { url: 'https://dckire.github.io/reinavalera/1corintios13.html', libro: '1 Corintios', capitulo: 13 },
+        ];
 
-        mainContent.addEventListener('touchstart', e => {
-            startY = e.touches[0].clientY;
-        });
+        // Función para buscar en la Biblia
+        async function buscarEnBiblia(palabra) {
+            const resultsContainer = document.getElementById('results-container');
+            resultsContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner"></i> Buscando en la Biblia...</div>';
 
-        mainContent.addEventListener('touchmove', e => {
-            const currentY = e.touches[0].clientY;
-            const diff = currentY - startY;
+            let resultadosEncontrados = false;
 
-            if (diff > 50 && mainContent.scrollTop === 0) {
-                refreshIndicator.style.display = 'block';
-                e.preventDefault();
+            // Limitar la búsqueda a unos pocos capítulos para evitar sobrecarga
+            const urlsLimitadas = bibleUrls.slice(0, 5);
+
+            for (const item of urlsLimitadas) {
+                try {
+                    const response = await fetch(item.url);
+                    if (!response.ok) throw new Error('Error al cargar el capítulo');
+                    
+                    const text = await response.text();
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(text, 'text/html');
+                    const versiculos = doc.querySelectorAll('p');
+
+                    versiculos.forEach((versiculo, index) => {
+                        const textoVersiculo = versiculo.textContent;
+                        if (textoVersiculo.toLowerCase().includes(palabra.toLowerCase())) {
+                            resultadosEncontrados = true;
+                            const versiculoResaltado = textoVersiculo.replace(
+                                new RegExp(palabra, 'gi'), 
+                                (match) => `<span class="resaltado">${match}</span>`
+                            );
+                            
+                            const resultItem = document.createElement('div');
+                            resultItem.className = 'result-item';
+                            resultItem.innerHTML = `
+                                <div class="result-reference">${item.libro} ${item.capitulo}:${index + 1}</div>
+                                <div class="result-text">${versiculoResaltado}</div>
+                            `;
+                            
+                            resultsContainer.appendChild(resultItem);
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error al cargar el capítulo:', error);
+                }
+            }
+
+            if (!resultadosEncontrados) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search" style="font-size: 48px; margin-bottom: 15px; color: #ADB5BD;"></i>
+                        <p>No se encontraron resultados para "${palabra}"</p>
+                        <p style="margin-top: 10px; font-size: 14px;">Intenta con otra palabra o frase</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Funcionalidad de navegación
+        function setupNavigation() {
+            // Navegación inferior
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('href');
+                    
+                    // Remover clase active de todos los items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Agregar clase active al item clickeado
+                    this.classList.add('active');
+                    
+                    // Simular navegación (en un entorno real esto cargaría la página)
+                    console.log(`Navegando a: ${targetPage}`);
+                    // window.location.href = targetPage; // Descomentar para navegación real
+                });
+            });
+
+            // Botones de acción rápida
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('href');
+                    console.log(`Navegando a: ${targetPage}`);
+                    // window.location.href = targetPage; // Descomentar para navegación real
+                });
+            });
+
+            // Botón de marcador en header
+            document.getElementById('bookmark-btn').addEventListener('click', function() {
+                console.log('Accediendo a marcadores');
+                // window.location.href = 'guardados.html'; // Descomentar para navegación real
+            });
+        }
+
+        // Event listeners para búsqueda
+        document.getElementById('search-button').addEventListener('click', function() {
+            const searchTerm = document.getElementById('search-input').value.trim();
+            if (searchTerm) {
+                buscarEnBiblia(searchTerm);
+            } else {
+                alert('Por favor, escribe una palabra o frase para buscar.');
             }
         });
 
-        mainContent.addEventListener('touchend', e => {
-            if (refreshIndicator.style.display === 'block') {
-                // Simular actualización
-                setTimeout(() => {
-                    refreshIndicator.style.display = 'none';
-                    // Aquí iría la lógica para actualizar el contenido
-                }, 1500);
+        document.getElementById('search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = document.getElementById('search-input').value.trim();
+                if (searchTerm) {
+                    buscarEnBiblia(searchTerm);
+                } else {
+                    alert('Por favor, escribe una palabra o frase para buscar.');
+                }
             }
         });
 
-        // Efectos táctiles en botones y tarjetas
-        document.querySelectorAll('.card, .action-btn').forEach(element => {
-            element.addEventListener('touchstart', function() {
-                this.style.opacity = '0.7';
+        // Efectos táctiles en botones
+        function setupTouchEffects() {
+            document.querySelectorAll('.search-button, .action-btn, .nav-item').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.opacity = '0.7';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.opacity = '1';
+                });
             });
-            
-            element.addEventListener('touchend', function() {
-                this.style.opacity = '1';
-            });
-        });
-
-        // Navegación entre pestañas
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+        }
 
         // Simular carga inicial
         document.addEventListener('DOMContentLoaded', function() {
+            // Configurar funcionalidades
+            setupNavigation();
+            setupTouchEffects();
+            
             // Añadir clase loaded al body después de un breve retraso para animaciones
             setTimeout(() => {
                 document.body.classList.add('loaded');
             }, 100);
         });
+
+        // Función para simular páginas (para demostración)
+        function simulatePageLoad(pageName) {
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = `
+                <div style="text-align: center; padding: 50px 20px;">
+                    <i class="fas fa-bible" style="font-size: 64px; color: var(--primary); margin-bottom: 20px;"></i>
+                    <h2 style="color: var(--dark); margin-bottom: 10px;">${pageName}</h2>
+                    <p style="color: var(--text);">Esta es una simulación de la página ${pageName}</p>
+                    <button onclick="goBack()" style="margin-top: 20px; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">
+                        Volver al Buscador
+                    </button>
+                </div>
+            `;
+        }
+
+        function goBack() {
+            location.reload();
+        }
     </script>
 </body>
 </html>
